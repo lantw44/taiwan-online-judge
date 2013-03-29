@@ -38,15 +38,17 @@ public:
     center_jmod_info *jmod_info;
     center_pro_info *pro_info;
     int lang;
+    bool rejudge_flag;
     char *param;
     void *jmod_manage_data;
 
-    center_submit_info(int subid,int uid,center_jmod_info *jmod_info,center_pro_info *pro_info,int lang,char *param){
+    center_submit_info(int subid,int uid,center_jmod_info *jmod_info,center_pro_info *pro_info,int lang,bool rejudge_flag,char *param){
 	this->subid = subid;
 	this->uid = uid;
 	this->jmod_info = jmod_info;
 	this->pro_info = pro_info;
 	this->lang = lang;
+	this->rejudge_flag = rejudge_flag;
 	this->param = param;
 	this->jmod_manage_data = NULL;
     }

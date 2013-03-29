@@ -65,6 +65,10 @@ private:
 	limit.rlim_max = limit.rlim_cur;
 	prlimit(pid,RLIMIT_NOFILE,&limit,NULL);
 
+	limit.rlim_cur = 70368744177664L;
+	limit.rlim_max = limit.rlim_cur;
+	prlimit(pid,RLIMIT_STACK,&limit,NULL);
+
 	com_proc_add.run_path[0] = '\0';
 	strncat(com_proc_add.run_path,run_path,sizeof(com_proc_add.run_path));
 	com_proc_add.pid = pid;

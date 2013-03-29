@@ -15,7 +15,7 @@
 #include<string>
 
 #include"tpool.h"
-#include"/srv/http/toj/php/event_exec.h"
+#include"event_exec.h"
 #include"center.h"
 #include"judge_def.h"
 #include"judgm_manage.h"
