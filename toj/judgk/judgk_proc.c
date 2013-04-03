@@ -5,7 +5,7 @@
 #include<linux/kthread.h>
 #include<asm/uaccess.h>
 
-#include"judge_def.h"
+#include<judge_def.h>
 #include"judgk.h"
 #include"judgk_com.h"
 #include"judgk_proc.h"
