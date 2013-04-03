@@ -8,7 +8,7 @@ default:
 	${MAKE} -C ${KERNEL_SOURCE} M=${PWD} modules
 	mv judgk.ko ../judge/
 
-	g++ -g -rdynamic -fvisibility=hidden -O2 center_server.cpp center_manage.cpp center_judge.cpp tool.cpp  /srv/http/toj/php/event_exec.cpp -ldl -lpq -ltar -lbz2 -ljson -lcurl -pthread -o center_server
+	g++ -g -rdynamic -fvisibility=hidden -O2 center_server.cpp center_manage.cpp center_judge.cpp tool.cpp event_exec.cpp -ldl -lpq -ltar -lbz2 -ljson -lcurl -pthread -o center_server
 	g++ -g -O2 judge_server.cpp judge_manage.cpp tool.cpp -ldl -lbz2 -ltar -pthread -o judge_server
 	mv center_server ../
 	mv judge_server ../judge/
