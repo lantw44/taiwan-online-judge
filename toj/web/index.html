@@ -133,7 +133,7 @@ input,select{
 
 <div id="index_panel_box" exminheight=true class="index_panel_box"><ul id="index_panel" class="index_panel">
     <li class="button home"><a href="/toj/home/" class="button">首頁</a></li>
-    <li class="button stat"><a href="/toj/stat/allsub/" class="button">狀態</a></li>
+    <li class="button stat"><a href="/toj/stat/sub/" class="button">狀態</a></li>
     <li class="button user" style="display:none;"><a class="button">個人</a></li>
     <li class="button square"><a class="button">方塊</a></li>
     <ul class="square_box"></ul>
@@ -163,7 +163,34 @@ input,select{
     </div>
 
     <div class="stat_page">
-	<div class="com_pbox sub_pbox allsub_pbox">
+	<div class="com_pbox sub_pbox">
+	    <div class="subset">
+		<table class="filter">
+		    <tr class="head">
+			<th class="key"><h3>過濾器</h3></th>
+			<th class="value"><button class="clear">清除</button></th>
+		    </tr>
+		    <tr class="item uid">
+			<td class="key">UID</td>
+			<td class="value">None</td>
+		    </tr>
+		    <tr class="item result">
+			<td class="key">Result</td>
+			<td class="value">
+			    <select>
+				<option value=null>None</option>
+				<option value=0>AC</option>
+				<option value=1>WA</option>
+				<option value=2>TLE</option>
+				<option value=3>MLE</option>
+				<option value=4>RF</option>
+				<option value=5>RE</option>
+				<option value=6>CE</option>
+			    </select>
+			</td>
+		    </tr>
+		</table>
+	    </div>
 	    <table class="sublist">
 		<tr class="head">
 		    <th class="subid">SubID</th>
@@ -183,8 +210,12 @@ input,select{
     <div class="user_page">
 	<div class="com_pbox main_pbox">
 	    <div class="info_box">
+		<div class="name"></div>
 		<img class="avatar"></img>
 		<div class="aboutme"></div>
+	    </div>
+	    <div class="data_box">
+		<button class="looksub">查看動態</button>
 	    </div>
 	</div>
 	<div class="com_pbox edit_pbox">
@@ -330,6 +361,17 @@ input,select{
 		<button class="cancel">取消</button>
 		<button class="delete" style="display:none;">刪除</button>
 	    </div>
+	    <div class="pro_box">
+		<h1>已加入題目</h1>
+		<div class="prolist_box">
+		    <table class="prolist prolist_in"></table>
+		</div>
+		<h1>未加入題目</h1>
+		<div class="prolist_box">
+		    <table class="prolist prolist_out"></table>
+		</div>
+	    </div>
+	    <div style="width:100%; clear:both;"></div>
 	</div>
 	<div class="com_mbox editpro_mbox">
 	    <div class="edit_box">
@@ -347,6 +389,7 @@ input,select{
 		    <h1>更新題目</h1>
 		    <span class="cacheid"></span><br><br>
 		    <button class="update">更新</button>
+		    <button class="rejudge">重測</button>
 		</div>
 
 		<div class="error"></div>
