@@ -8,6 +8,29 @@ AC_CONFIG_SRCDIR([include/judge_def.h])
 AC_CONFIG_HEADERS([include/config.h])
 AC_CONFIG_MACRO_DIR([m4])
 
+# Checks for platform.
+AC_CANONICAL_HOST
+AC_CANONICAL_BUILD
+if test "$build" '!=' "$host" ; then
+	AC_MSG_ERROR([This program does not support cross-compiling])
+fi
+
+case "${host_cpu}" in
+	x86_64|amd64)
+		;;
+	*)
+		AC_MSG_ERROR([This program can only be run on x86_64 platform])
+		;;
+esac
+
+case "${host_os}" in
+	*linux*)
+		;;
+	*)
+		AC_MSG_ERROR([Sorry, we only support Linux])
+		;;
+esac
+
 # Checks for programs.
 AC_PROG_CC
 AC_PROG_CXX
