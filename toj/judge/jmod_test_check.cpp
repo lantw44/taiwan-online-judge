@@ -6,7 +6,7 @@
 #include<fcntl.h>
 #include<errno.h>
 
-#include"judge_def.h"
+#include<judge_def.h>
 #include"judgm_lib.h"
 #include"jmod_test.h"
 #include"jmod_test_check.h"

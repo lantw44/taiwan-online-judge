@@ -7,4 +7,6 @@
 .tmp_versions
 Module.symvers
 modules.order
-
+autoscan.log
+configure.scan
+configure

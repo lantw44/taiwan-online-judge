@@ -5,7 +5,7 @@
 #include<pthread.h>
 #include<json/json.h>
 
-#include"judge_def.h"
+#include<judge_def.h>
 #include"judgm_lib.h"
 #include"judgm_line.h"
 #include"jmod_test.h"

@@ -17,7 +17,6 @@
 #include<utility>
 
 #include"judge.h"
-#include"judgk_com.h"
 
 typedef int (*judgm_proc_check_fn)();
 

@@ -6,8 +6,8 @@
 #include<linux/fs.h>
 #include<linux/sched.h>
 
+#include<judge_def.h>
 #include"judgk.h"
-#include"judgk_com.h"
 #include"judgk_mod.h"
 
 static int __init mod_init(){

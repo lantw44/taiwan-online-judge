@@ -8,7 +8,6 @@
 
 #include"judge_def.h"
 #include"judgk.h"
-#include"judgk_com.h"
 #include"judgk_syscall.h"
 
 int judgk_syscall_hook(){

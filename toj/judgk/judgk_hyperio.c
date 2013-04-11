@@ -7,8 +7,8 @@
 #include<asm/atomic.h>
 #include<asm/mman.h>
 
+#include<judge_def.h>
 #include"judgk.h"
-#include"judgk_com.h"
 #include"judgk_hyperio.h"
 
 int judgk_hyperio_init(){

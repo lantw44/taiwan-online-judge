@@ -7,7 +7,6 @@
 
 #include<judge_def.h>
 #include"judgk.h"
-#include"judgk_com.h"
 #include"judgk_proc.h"
 
 int judgk_proc_init(){
