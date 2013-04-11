@@ -38,19 +38,22 @@ AM_PROG_CC_C_O
 AM_PROG_AR
 AC_PROG_LIBTOOL
 
+
 # Checks for libraries.
-# FIXME: Replace `main' with a function in `-lbz2':
-AC_CHECK_LIB([bz2], [main])
-# FIXME: Replace `main' with a function in `-lcurl':
-AC_CHECK_LIB([curl], [main])
-# FIXME: Replace `main' with a function in `-ldl':
-AC_CHECK_LIB([dl], [main])
-# FIXME: Replace `main' with a function in `-ljson':
-AC_CHECK_LIB([json], [main])
-# FIXME: Replace `main' with a function in `-lpq':
-AC_CHECK_LIB([pq], [main])
-# FIXME: Replace `main' with a function in `-ltar':
-AC_CHECK_LIB([tar], [main])
+AC_CHECK_LIB([bz2], [BZ2_bzCompress], [true],
+	AC_MSG_ERROR([bzip2 is missing]))
+AC_CHECK_LIB([dl], [dlopen], [true],
+	AC_MSG_ERROR([dl is missing]))
+AC_CHECK_LIB([tar], [tar_open], [true],
+	AC_MSG_ERROR([libtar is missing]))
+AC_CHECK_LIB([pq], [PQconnectdb], [true],
+	AC_MSG_ERROR([PostgreSQL client library is missing]))
+
+# pkg-config
+PKG_CHECK_MODULES([CURL], [libcurl], [true],
+	AC_MSG_ERROR([curl is missing]))
+PKG_CHECK_MODULES([JSON], [json], [true],
+	AC_MSG_ERROR([json is missing]))
 
 # Checks for header files.
 AC_CHECK_HEADERS([arpa/inet.h fcntl.h limits.h netinet/in.h stdlib.h string.h sys/ioctl.h sys/socket.h unistd.h])

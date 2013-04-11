@@ -1,8 +1,9 @@
 bin_PROGRAMS = center_server judge_server
 
-center_server_CFLAGS = -I../include -rdynamic -fvisibility=hidden -pthread
+center_server_CFLAGS = -I../include -rdynamic -fvisibility=hidden -pthread \
+					   $(JSON_CFLAGS) $(CURL_CFLAGS)
 center_server_LDFLAGS = -pthread
-center_server_LDADD = -ldl -lpq -ltar -lbz2 -ljson -lcurl
+center_server_LDADD = -ldl -lpq -ltar -lbz2 $(JSON_LIBS) $(CURL_LIBS)
 center_server_SOURCES = center_server.cpp center_manage.cpp center_judge.cpp tool.cpp event_exec.cpp
 
 judge_server_CFLAGS = -I../include -pthread
@@ -18,11 +19,11 @@ libjmod_test_check_la_LIBADD =
 libjmod_test_check_la_SOURCES = jmod_test_check.cpp
 
 libjmod_test_line_la_CFLAGS = -I../include -pthread
-libjmod_test_line_la_LDFLAGS = -pthread
-libjmod_test_line_la_LIBADD = -ljson
+libjmod_test_line_la_LDFLAGS = -pthread $(JSON_CFLAGS)
+libjmod_test_line_la_LIBADD = $(JSON_LIBS)
 libjmod_test_line_la_SOURCES = jmod_test_line.cpp
 
 libjmod_test_manage_la_CFLAGS = -I../include -pthread
-libjmod_test_manage_la_LDFLAGS = -pthread
-libjmod_test_manage_la_LIBADD = -ldl -ljson
+libjmod_test_manage_la_LDFLAGS = -pthread $(JSON_CFLAGS)
+libjmod_test_manage_la_LIBADD = -ldl $(JSON_LIBS)
 libjmod_test_manage_la_SOURCES = jmod_test_manage.cpp
