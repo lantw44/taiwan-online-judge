@@ -10,8 +10,9 @@ AC_CONFIG_MACRO_DIR([m4])
 
 # Checks for programs.
 AC_PROG_CC
-AM_PROG_CC_C_O
 AC_PROG_CXX
+AM_PROG_CC_C_O
+AM_PROG_AR
 AC_PROG_LIBTOOL
 
 # Checks for libraries.
@@ -45,5 +46,5 @@ AC_FUNC_MALLOC
 AC_FUNC_MMAP
 AC_CHECK_FUNCS([dup2 getcwd memset mkdir munmap realpath rmdir socket])
 
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([Makefile judge/Makefile])
 AC_OUTPUT

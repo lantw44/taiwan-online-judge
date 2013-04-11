@@ -1,2 +1,2 @@
 ACLOCAL_AMFLAGS = -I m4
-SUBDIR = judge
+SUBDIRS = judge judgk
