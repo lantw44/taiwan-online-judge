@@ -15,9 +15,9 @@
 #include<map>
 #include<string>
 
+#include<judge_def.h>
 #include"tpool.h"
 #include"event_exec.h"
-#include"judge_def.h"
 #include"judgm_manage.h"
 #include"center.h"
 #include"center_manage.h"

@@ -14,8 +14,8 @@
 #include<queue>
 #include<string>
 
+#include<judge_def.h>
 #include"netio.h"
-#include"judge_def.h"
 #include"judgm_manage.h"
 #include"center.h"
 #include"center_com.h"

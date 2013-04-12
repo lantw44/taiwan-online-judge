@@ -17,6 +17,7 @@ ar-lib
 autoscan.log
 autom4te.cache
 config.log
+config.msg
 config.sub
 config.guess
 config.status
@@ -42,3 +43,7 @@ stamp-h1
 /judge/Makefile.in
 /judge/center_server
 /judge/judge_server
+/judgk/Makefile
+/judgk/judgk.mod.c
+/taiwan-online-judge-*.tar.*z
+/taiwan-online-judge-*.zip

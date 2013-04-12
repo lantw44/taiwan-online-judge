@@ -20,9 +20,9 @@
 #include<map>
 #include<queue>
 
+#include<judge_def.h>
 #include"netio.h"
 #include"tpool.h"
-#include"judge_def.h"
 #include"judge.h"
 #include"center_com.h"
 #include"judgm_line.h"

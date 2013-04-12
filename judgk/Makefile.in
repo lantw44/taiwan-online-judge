@@ -1,0 +1,70 @@
+ifneq ($(KERNELRELEASE),)
+	CC = @KERNEL_CC@
+	judgk-objs := judgk_mod.o judgk_proc.o judgk_syscall.o judgk_syscall_asm.o judgk_security.o judgk_hyperio.o
+	obj-m := judgk.o
+else
+	judgk_source = @abs_top_srcdir@/judgk
+	judgk_include= -I"@abs_top_srcdir@/include"
+	linux_source = @KERNEL_SRC@
+
+	prefix = @prefix@
+	exec_prefix = @exec_prefix@
+	libdir = @libdir@
+	pkglibdir = $(libdir)/@PACKAGE@
+
+all:
+	$(MAKE) -C $(linux_source) M=$(judgk_source) EXTRA_CFLAGS=$(judgk_include) modules
+distdir:
+	mkdir -p $(distdir)/judgk
+	cp -p \
+		judgk.h \
+		judgk_hyperio.c \
+		judgk_hyperio.h \
+		judgk_mod.c \
+		judgk_mod.h \
+		judgk_proc.c \
+		judgk_proc.h \
+		judgk_security.c \
+		judgk_security.h \
+		judgk_syscall_asm.S \
+		judgk_syscall.c \
+		judgk_syscall.h \
+		Makefile.in \
+		$(distdir)
+
+install: installdirs install-data install-exec
+installdirs:
+	@MKDIR_P@ "$(DESTDIR)$(pkglibdir)/modules"
+install-exec: all
+	@INSTALL@ -c -m 644 judgk.ko \
+		"$(DESTDIR)$(pkglibdir)/modules"
+install-data: install-dvi install-html install-info install-ps install-pdf
+install-dvi:
+install-html:
+install-info:
+install-ps:
+install-pdf:
+
+uninstall:
+	rm -f "$(DESTDIR)$(pkglibdir)/modules/judgk.ko"
+
+check:
+installcheck:
+
+mostlyclean: clean
+clean:
+	$(MAKE) -C $(linux_source) SUBDIRS=$(judgk_source) clean
+distclean: clean
+	rm -f Makefile
+maintainer-clean: distclean
+
+dvi:
+pdf:
+ps:
+info:
+html:
+
+tags:
+ctags:
+
+endif

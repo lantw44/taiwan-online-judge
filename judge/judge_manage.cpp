@@ -10,8 +10,8 @@
 #include<sys/mman.h>
 #include<map>
 
+#include<judge_def.h>
 #include"tpool.h"
-#include"judge_def.h"
 #include"judge.h"
 #include"judgm_line.h"
 #include"judgm_lib.h"

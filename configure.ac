@@ -37,6 +37,8 @@ AC_PROG_CXX
 AM_PROG_CC_C_O
 AM_PROG_AR
 AC_PROG_LIBTOOL
+AC_PROG_MKDIR_P
+AC_PROG_INSTALL
 
 
 # Checks for libraries.
@@ -55,6 +57,26 @@ PKG_CHECK_MODULES([CURL], [libcurl], [true],
 PKG_CHECK_MODULES([JSON], [json], [true],
 	AC_MSG_ERROR([json is missing]))
 
+
+# options
+AC_ARG_WITH([kernel-cc],
+	[AS_HELP_STRING([--with-kernel-cc=K_CC], 
+		[C compiler used to compile kernel modules @<:@default=gcc@:>@])],
+	[with_kernel_cc=$withval], [with_kernel_cc=gcc])
+AC_ARG_WITH([kernel-ver],
+	[AS_HELP_STRING([--with-kernel-ver=K_VER],
+		[select the kernel header version @<:@default=$(shell uname -r)@:>@])],
+	[with_kernel_ver=$withval], [with_kernel_ver='$(shell uname -r)'])
+AC_ARG_WITH([kernel-src],
+	[AS_HELP_STRING([--with-kernel-src=K_SRC],
+		[the path to your kernel source tree 
+		@<:@default=/lib/modules/K_VER/build@:>@])],
+	[with_kernel_src=$withval], 
+	[with_kernel_src=/lib/modules/$with_kernel_ver/build])
+
+AC_SUBST([KERNEL_CC], ["$with_kernel_cc"])
+AC_SUBST([KERNEL_SRC], ["$with_kernel_src"])
+
 # Checks for header files.
 AC_CHECK_HEADERS([arpa/inet.h fcntl.h limits.h netinet/in.h stdlib.h string.h sys/ioctl.h sys/socket.h unistd.h])
 
@@ -72,5 +94,20 @@ AC_FUNC_MALLOC
 AC_FUNC_MMAP
 AC_CHECK_FUNCS([dup2 getcwd memset mkdir munmap realpath rmdir socket])
 
-AC_CONFIG_FILES([Makefile judge/Makefile])
+AC_CONFIG_FILES([Makefile judge/Makefile judgk/Makefile])
 AC_OUTPUT
+
+config_msg_gen () {
+	echo "C compiler ........................... $CC"
+	echo "C++ compiler ......................... $CXX"
+	echo "Kernel C compiler .................... $with_kernel_cc"
+	echo "Kernel source ........................ $with_kernel_src"
+}
+
+echo ""
+config_msg_gen
+config_msg_gen > config.msg
+echo "The above messages has been written to config.msg"
+echo ""
+echo "Note: You should build this package with GNU make!"
+echo ""
