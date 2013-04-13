@@ -1,10 +1,11 @@
 .code64
-.section .text
-.global judgk_syscall_block
-.extern judgk_syscall_check
+.section .data	//Don't run these code, just data for copy
+.global judgk_security_block
+.global judgk_security_blockend
+.extern judgk_security_checkaddr
 
-judgk_syscall_block:
-    push %rax
+//First 8 bytes is original function address
+judgk_security_block:
     push %rbx
     push %rcx
     push %rdx
@@ -20,8 +21,8 @@ judgk_syscall_block:
     push %r14
     push %r15
     pushfq
-
-    call judgk_syscall_check
+    
+    callq *(judgk_security_checkaddr)
 
     popfq
     pop %r15
@@ -40,15 +41,17 @@ judgk_syscall_block:
     pop %rbx
 
     test %rax,%rax
-    pop %rax
     jnz .block
-    
-    push %rdx	//use rdx, because mul rax => rdx:rax, kill two birds with one stone
-    mov $8,%rdx
-    mul %rdx
-    pop %rdx
-    add judgk_syscall_ori_table,%rax
+
+    call .getrip
+.offset:
+    sub $(.offset - judgk_security_block + 8),%rax
     jmp *(%rax)
 
 .block:
     ret
+
+.getrip:
+    mov (%rsp),%rax
+    ret
+judgk_security_blockend:

@@ -1,6 +1,6 @@
 ifneq ($(KERNELRELEASE),)
 	CC = @KERNEL_CC@
-	judgk-objs := judgk_mod.o judgk_proc.o judgk_syscall.o judgk_syscall_asm.o judgk_security.o judgk_hyperio.o
+	judgk-objs := judgk_mod.o judgk_proc.o judgk_syscall.o judgk_syscall_asm.o judgk_security.o judgk_security_asm.o judgk_hyperio.o
 	obj-m := judgk.o
 else
 	judgk_source = @abs_top_srcdir@/judgk
@@ -24,6 +24,7 @@ distdir:
 		judgk_mod.h \
 		judgk_proc.c \
 		judgk_proc.h \
+		judgk_security_asm.S \
 		judgk_security.c \
 		judgk_security.h \
 		judgk_syscall_asm.S \
