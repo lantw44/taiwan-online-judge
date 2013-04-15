@@ -12,10 +12,18 @@ else
 	libdir = @libdir@
 	pkglibdir = $(libdir)/@PACKAGE@
 
-all:
+.PHONY: all distdir install-exec install-data install-dvi install-html \
+		install-info install-ps install-pdf uninstall check installcheck \
+		mostlyclean clean distclean maintainer-clean \
+		dvi pdf ps info html
+
+all: judgk.ko
+
+judgk.ko:
 	$(MAKE) -C $(linux_source) M=$(judgk_source) EXTRA_CFLAGS=$(judgk_include) modules
+
 distdir:
-	mkdir -p $(distdir)/judgk
+	$(MKDIR_P) -p $(distdir)/judgk
 	cp -p \
 		judgk.h \
 		judgk_hyperio.c \
