@@ -1,3 +1,7 @@
+#ifdef HAVE_CONFIG_H
+# include<judge_conf.h>
+#endif
+
 #include "event_exec.h"
 
 #define EVENT_BUFLEN 1005

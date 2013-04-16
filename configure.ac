@@ -5,7 +5,7 @@ AC_INIT([taiwan-online-judge], [0.1], [BUG-REPORT-ADDRESS])
 AM_INIT_AUTOMAKE([foreign -Wall])
 AM_SILENT_RULES([yes])
 AC_CONFIG_SRCDIR([include/judge_def.h])
-AC_CONFIG_HEADERS([include/config.h])
+AC_CONFIG_HEADERS([include/judge_conf.h])
 AC_CONFIG_MACRO_DIR([m4])
 
 # Checks for platform.
@@ -78,11 +78,15 @@ AC_SUBST([KERNEL_CC], ["$with_kernel_cc"])
 AC_SUBST([KERNEL_SRC], ["$with_kernel_src"])
 
 # Checks for header files.
-AC_CHECK_HEADERS([arpa/inet.h fcntl.h limits.h netinet/in.h stdlib.h string.h sys/ioctl.h sys/socket.h unistd.h])
+dnl We only support Linux, so it is no need to check header files (?)
+dnl AC_CHECK_HEADERS([arpa/inet.h fcntl.h limits.h netinet/in.h stdlib.h string.h sys/ioctl.h sys/socket.h unistd.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
-AC_CHECK_HEADER_STDBOOL
-AC_C_INLINE
+
+dnl We only use C++, so we do not have to check them.
+dnl AC_CHECK_HEADER_STDBOOL
+dnl AC_C_INLINE
+
 AC_TYPE_OFF_T
 AC_TYPE_PID_T
 AC_TYPE_SIZE_T
@@ -90,9 +94,22 @@ AC_TYPE_SSIZE_T
 
 # Checks for library functions.
 AC_FUNC_FORK
-AC_FUNC_MALLOC
+test x"${ac_cv_func_fork_works}" = xyes || \
+	AC_MSG_ERROR(This program requires a working fork function.)
+
 AC_FUNC_MMAP
-AC_CHECK_FUNCS([dup2 getcwd memset mkdir munmap realpath rmdir socket])
+test x"${ac_cv_func_mmap_fixed_mapped}" = xyes || \
+	AC_MSG_ERROR(This program requires a working mmap function.)
+
+dnl We do not use malloc(0), so this check may not be important. (?)
+dnl AC_FUNC_MALLOC
+
+for f in \
+	dup2 getcwd memset mkdir munmap realpath rmdir socket
+do
+	AC_CHECK_FUNC([$f], [true],
+		[AC_MSG_ERROR(This program requires function $f!)])
+done
 
 AC_CONFIG_FILES([Makefile judge/Makefile judgk/Makefile])
 AC_OUTPUT

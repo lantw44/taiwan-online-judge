@@ -37,8 +37,8 @@ missing
 stamp-h1
 /Makefile
 /Makefile.in
-/include/config.h
-/include/config.h.in
+/include/judge_conf.h
+/include/judge_conf.h.in
 /judge/Makefile
 /judge/Makefile.in
 /judge/center_server
