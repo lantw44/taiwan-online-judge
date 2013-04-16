@@ -23,7 +23,7 @@ judgk.ko:
 	$(MAKE) -C $(linux_source) M=$(judgk_source) EXTRA_CFLAGS=$(judgk_include) modules
 
 distdir:
-	$(MKDIR_P) -p $(distdir)/judgk
+	@MKDIR_P@ $(distdir)/judgk
 	cp -p \
 		judgk.h \
 		judgk_hyperio.c \
@@ -45,7 +45,7 @@ install: installdirs install-data install-exec
 installdirs:
 	@MKDIR_P@ "$(DESTDIR)$(pkglibdir)/modules"
 install-exec: all
-	@INSTALL@ -c -m 644 judgk.ko \
+	@INSTALL@ -m 644 judgk.ko \
 		"$(DESTDIR)$(pkglibdir)/modules"
 install-data: install-dvi install-html install-info install-ps install-pdf
 install-dvi:
