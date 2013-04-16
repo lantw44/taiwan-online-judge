@@ -62,17 +62,30 @@ PKG_CHECK_MODULES([JSON], [json], [true],
 AC_ARG_WITH([kernel-cc],
 	[AS_HELP_STRING([--with-kernel-cc=K_CC], 
 		[C compiler used to compile kernel modules @<:@default=gcc@:>@])],
-	[with_kernel_cc=$withval], [with_kernel_cc=gcc])
+	[with_kernel_cc="$withval"], [with_kernel_cc=gcc])
 AC_ARG_WITH([kernel-ver],
 	[AS_HELP_STRING([--with-kernel-ver=K_VER],
 		[select the kernel header version @<:@default=$(shell uname -r)@:>@])],
-	[with_kernel_ver=$withval], [with_kernel_ver='$(shell uname -r)'])
+	[with_kernel_ver="$withval"], [with_kernel_ver='$(shell uname -r)'])
+
+if test "${with_kernel_ver}" = '$(shell uname -r)'; then
+	k_ver_check="`echo ${with_kernel_ver} | sed 's/$(shell \(.*\))/\1/'`"
+	k_ver_check="`${k_ver_check}`"
+else
+	k_ver_check="${with_kernel_ver}"
+fi
+
 AC_ARG_WITH([kernel-src],
 	[AS_HELP_STRING([--with-kernel-src=K_SRC],
 		[the path to your kernel source tree 
 		@<:@default=/lib/modules/K_VER/build@:>@])],
-	[with_kernel_src=$withval], 
-	[with_kernel_src=/lib/modules/$with_kernel_ver/build])
+	[with_kernel_src="$withval"], 
+	[with_kernel_src="/lib/modules/${with_kernel_ver}/build"
+	 k_src_check="/lib/modules/${k_ver_check}/build"])
+
+
+AC_CHECK_FILES([${k_src_check}/Makefile], [true],
+	[AC_MSG_ERROR([Linux kernel headers cannot be found. You should specify the path using --with-kernel-ver or --with-kernel-src])])
 
 AC_SUBST([KERNEL_CC], ["$with_kernel_cc"])
 AC_SUBST([KERNEL_SRC], ["$with_kernel_src"])
